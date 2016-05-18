@@ -1,4 +1,25 @@
 Rails.application.routes.draw do
+
+
+  get 'players', to: 'players#index'
+  get 'players/free', to: 'players#free'
+
+  resources :teams do
+    resources :players, shallow: true do
+    end
+  end
+
+  resources :players do
+    # collection do
+    # end
+
+    member do
+      get :fired
+    end
+  end
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
