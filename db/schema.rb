@@ -19,11 +19,11 @@ ActiveRecord::Schema.define(version: 20160518105228) do
   create_table "matches", force: :cascade do |t|
     t.date     "datetime"
     t.integer  "status"
-    t.integer  "local_team",   null: false
-    t.integer  "invited_team", null: false
+    t.integer  "local_team_id",   null: false
+    t.integer  "invited_team_id", null: false
     t.integer  "stadium_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "players", force: :cascade do |t|
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20160518105228) do
   end
 
   add_foreign_key "matches", "stadia"
-  add_foreign_key "matches", "teams", column: "invited_team"
-  add_foreign_key "matches", "teams", column: "local_team"
+  add_foreign_key "matches", "teams", column: "invited_team_id"
+  add_foreign_key "matches", "teams", column: "local_team_id"
   add_foreign_key "players", "teams"
 end
