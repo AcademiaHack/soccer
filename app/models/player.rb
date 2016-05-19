@@ -18,6 +18,7 @@ class Player < ActiveRecord::Base
 
   before_create :active
   scope :free, -> { where(team_id: nil) }
+  # scope :active, -> { where(status: 0) }
 
   def fired
     update(team_id: nil)

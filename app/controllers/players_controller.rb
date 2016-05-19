@@ -1,6 +1,7 @@
 class PlayersController < ApplicationController
   before_action :find_player, only: [:show, :update, :destroy, :fired]
 
+  #GET
   def index
     @players = if params[:team_id].present?
                  @team = Team.find(params[:team_id])
@@ -11,6 +12,7 @@ class PlayersController < ApplicationController
     render json: @players
   end
 
+  #POST
   def create
     @team = Team.find(params[:team_id])
     @player = @team.players.build(player_params)
@@ -22,10 +24,12 @@ class PlayersController < ApplicationController
     end
   end
 
+  #GET
   def show
     render json: @player, status: :ok
   end
 
+  #PUT
   def update
     if @player.update(player_params)
       render json: @player, status: :accepted
@@ -34,15 +38,18 @@ class PlayersController < ApplicationController
     end
   end
 
+  #DELETE
   def destroy
     render json: @player, status: :ok if @player.destroy
   end
 
+  #GET
   def free
     @players = Player.free
     render json: @players
   end
 
+  #PUT
   def fired
     @player.fired
     render json: { message: 'Fired!' }
@@ -51,8 +58,7 @@ class PlayersController < ApplicationController
   private
 
   def player_params
-    params.require(:player)
-          .permit(:name, :strong_leg, :team_id)
+    params.require(:player).permit(:name, :strong_leg, :team_id)
   end
 
   def find_player

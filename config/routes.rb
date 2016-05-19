@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :matches, only: [:show, :update, :destroy]
 
+
   resources :teams, except: [:new, :edit] do
     resources :players, only: [:index, :create]
   end
