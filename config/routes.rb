@@ -1,24 +1,24 @@
 Rails.application.routes.draw do
-
-
-  get 'players', to: 'players#index'
-  get 'players/free', to: 'players#free'
-
-  resources :teams do
-    resources :players, shallow: true do
-    end
+  resources :stadia, except: [:new, :edit] do
+    resources :matches, only: [:index, :create]
   end
 
-  resources :players do
-    # collection do
-    # end
+  resources :matches, only: [:show, :update, :destroy]
+
+  resources :teams, except: [:new, :edit] do
+    resources :players, only: [:index, :create]
+  end
+
+  resources :players, only: [:show, :update, :destroy] do
+    collection do
+      get :index
+      get :free
+    end
 
     member do
       get :fired
     end
   end
-
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

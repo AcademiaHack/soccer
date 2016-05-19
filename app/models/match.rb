@@ -17,4 +17,12 @@ class Match < ActiveRecord::Base
   belongs_to :stadium
   belongs_to :local_team, class_name: 'Team', foreign_key: 'local_team_id'
   belongs_to :invited_team, class_name: 'Team', foreign_key: 'invited_team_id'
+
+  before_create :peding
+
+  private
+
+  def pending
+    self.status = 'pending'
+  end
 end
